@@ -18,7 +18,7 @@ public class ClientRepositoryHelper {
     }
 
     public String getStudentById(){
-        return " Select id, first_name, last_ame, dni, email, phone, status from client where id = ? ";
+        return " Select id, first_name, last_name, dni, email, phone, status from client where id = ? ";
     }
 
     public String deleteClient(){
