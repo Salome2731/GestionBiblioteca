@@ -1,4 +1,4 @@
-package com.ottersal.gestionbiblioteca.model;
+package com.ottersal.gestionbiblioteca.model.enums;
 
 public enum StatusEnum {
     ACTIVO,
