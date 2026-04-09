@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data // Esto es lo que genera los Getters y Setters automáticamente
+@Getter
+@Setter
+    
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
