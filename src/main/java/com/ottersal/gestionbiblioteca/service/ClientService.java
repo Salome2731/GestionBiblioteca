@@ -1,4 +1,5 @@
 package com.ottersal.gestionbiblioteca.service;
+
 import com.ottersal.gestionbiblioteca.model.Client;
 import com.ottersal.gestionbiblioteca.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,13 @@ public class ClientService {
     }
 
     public Client createClient(Client client) {
-        // Generamos el UUID antes de enviarlo al DAO
         if (client.getId() == null) {
             client.setId(UUID.randomUUID());
         }
         return clientRepository.insertClient(client);
     }
 
+    
     public Client updateClient(UUID id, Client client) {
         client.setId(id);
         return clientRepository.updateClient(client);
@@ -39,4 +40,4 @@ public class ClientService {
     public boolean deleteClient(UUID id) {
         return clientRepository.deleteClient(id);
     }
-}
+    }
