@@ -17,7 +17,8 @@ public class ClientRepositoryHelper {
         return " update client set first_name = ?, last_name = ?, dni = ?, email = ?, phone = ?, status = ? where id = ? ";
     }
 
-    public String getStudentById(){
+
+    public String getClientById(){
         return " Select id, first_name, last_name, dni, email, phone, status from client where id = ? ";
     }
 
