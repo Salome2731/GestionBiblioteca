@@ -33,7 +33,7 @@ public class ClientRepository {
             while (rs.next()) {
                 Client client = new Client();
                 client.setId(UUID.fromString(rs.getString(1)));
-                client.setFirtsName(rs.getString(2));
+                client.setFirstName(rs.getString(2));
                 client.setLastName(rs.getString(3));
                 client.setDNI(rs.getString(4));
                 client.setEmail(rs.getString(5));
@@ -62,7 +62,7 @@ public class ClientRepository {
             ps = connection.prepareStatement(helper.insertClient());
 
             ps.setString(1, client.getId().toString());
-            ps.setString(2, client.getFirtsName());
+            ps.setString(2, client.getFirstName());
             ps.setString(3, client.getLastName());
             ps.setString(4, client.getDNI());
             ps.setString(5, client.getEmail());
@@ -97,7 +97,7 @@ public class ClientRepository {
         PreparedStatement ps = null;
         try{
             ps = connection.prepareStatement(helper.updateClient());
-            ps.setString(1, client.getFirtsName());
+            ps.setString(1, client.getFirstName());
             ps.setString(2, client.getLastName());
             ps.setString(3, client.getDNI());
             ps.setString(4, client.getEmail());
@@ -131,7 +131,7 @@ public class ClientRepository {
             if(rs.next()) {
                 result = new Client();
                 result.setId(UUID.fromString(rs.getString(1)));
-                result.setFirtsName(rs.getString(2));
+                result.setFirstName(rs.getString(2));
                 result.setLastName(rs.getString(3));
                 result.setDNI(rs.getString(4));
                 result.setEmail(rs.getString(5));

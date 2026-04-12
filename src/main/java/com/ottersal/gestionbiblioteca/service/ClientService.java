@@ -21,7 +21,7 @@ public class ClientService {
     }
 
     public Client getClientById(UUID id) {
-        return clientRepository.getClient(id);
+        return clientRepository.getClientById(id);
     }
 
     public Client createClient(Client client) {

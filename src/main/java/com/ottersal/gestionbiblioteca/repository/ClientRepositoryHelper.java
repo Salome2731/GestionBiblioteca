@@ -18,13 +18,16 @@ public class ClientRepositoryHelper {
     }
 
 
-    public String getClientById(){
+    public String getClientById() {
         return " Select id, first_name, last_name, dni, email, phone, status from client where id = ? ";
 
+    }
 
-    public String deleteClient(){
-        return " Delete from client where id = ? ";
+    public String deleteClient () {
+         return " Delete from client where id = ? ";
     }
 
 
+
 }
+
