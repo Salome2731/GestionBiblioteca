@@ -23,7 +23,7 @@ public class Client {
 
     @Size(min = 2, max = 50)
     @NotBlank(message = "El nombre es requerido")
-    private String firtsName;
+    private String firstName;
 
 
     @Size(min = 2, max = 50)
