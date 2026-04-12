@@ -119,13 +119,13 @@ public class ClientRepository {
         return client;
     }
 
-    public Client getClient(UUID id) {
+    public Client getClientById(UUID id) {
         Client result = null;
         Conexion conexion = new Conexion();
         Connection connection = conexion.obtenerConexion();
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement(helper.getStudentById());
+            ps = connection.prepareStatement(helper.getClientById());
             ps.setString(1, String.valueOf(id));
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
