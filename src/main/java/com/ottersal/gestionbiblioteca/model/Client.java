@@ -1,6 +1,9 @@
 package com.ottersal.gestionbiblioteca.model;
 
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -42,5 +46,14 @@ public class Client {
     private String email;
 
     private String status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "client_role",
+            joinColumns = @JoinColumn(name = "client_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
+    )
+    private Set<Role> roles;
+
 
 }
