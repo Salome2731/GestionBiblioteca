@@ -1,0 +1,18 @@
+### GET request to example server
+GET http://localhost:8080/api/roles
+
+
+### POST request to create a new role
+POST http://localhost:8080/api/roles
+Content-Type: application/json
+
+//{
+//    "name": "ADMINISTRADOR"
+//}
+
+{
+    "name": "BIBLIOTECARIO"
+}
+
+### GET ROLE BY ID
+GET http://localhost:8080/api/roles/15f19cc4-0eaa-4b03-b2d2-4b9c7806056b
