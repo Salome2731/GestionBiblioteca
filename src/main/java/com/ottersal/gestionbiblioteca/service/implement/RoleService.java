@@ -20,7 +20,7 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role create(Role role) {
-        if (roleRepository.existsByName(role.getName())) {
+        if (roleRepository.existsRoleByName((role.getName()))) {
             throw new IllegalArgumentException("El rol ya existe");
         }
         return roleRepository.save(role);

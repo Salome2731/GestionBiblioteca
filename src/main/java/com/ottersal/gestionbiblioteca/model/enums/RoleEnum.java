@@ -2,5 +2,8 @@ package com.ottersal.gestionbiblioteca.model.enums;
 
 public enum RoleEnum {
     ADMINISTRADOR,
-    BIBLIOTECARIO
+    BIBLIOTECARIO,
+    ESTUDIANTE,
+    EMPLEADO,
+    DOCENTE
 }
