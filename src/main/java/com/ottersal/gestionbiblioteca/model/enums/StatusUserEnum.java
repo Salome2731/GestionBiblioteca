@@ -1,9 +1,9 @@
 package com.ottersal.gestionbiblioteca.model.enums;
 
-public enum StatusEnum {
+public enum StatusUserEnum {
     ACTIVO,
-    PENDIENTE,
-    EN_MORA
-
+    MOROSO,
+    VETADO,
+    INACTIVO
 
 }
