@@ -1,17 +1,8 @@
 package com.ottersal.gestionbiblioteca.model;
 
 import com.ottersal.gestionbiblioteca.model.enums.RoleEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +30,20 @@ public class Role {
     @NotNull(message = "El nombre del rol es requerido")
     @Enumerated(EnumType.STRING)
     private RoleEnum name;
+
+
+    @Column
+    @NotNull(message = "La descripción es requerida")
+    private String description;
+
+    @ManyToMany
+    @JoinTable(
+            name = "role_permission",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    )
+    private Set <Permission> permissions;
+
 
 
 }
