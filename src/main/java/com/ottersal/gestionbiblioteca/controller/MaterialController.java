@@ -1,5 +1,8 @@
 package com.ottersal.gestionbiblioteca.controller;
 
+@Tag(name = "Material", description = "API para gestión de materiales")
+@Operation(summary = "obtener material")
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
