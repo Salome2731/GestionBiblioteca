@@ -72,7 +72,7 @@ public class MaterialServiceImpl implements IMaterialService {
         existingMaterial.setEditorial(updatedMaterial.getEditorial());
         existingMaterial.setIsbn(updatedMaterial.getIsbn());
         existingMaterial.setTotalQuantity(updatedMaterial.getTotalQuantity());
-        existingMaterial.setCodigoBarras(updatedMaterial.getCodigoBarras());
+        existingMaterial.setBar_code(updatedMaterial.getBar_code());
 
         // Aseguramos que la cantidad disponible nunca supere al total
         if (existingMaterial.getAvailableQuantity() > existingMaterial.getTotalQuantity()) {

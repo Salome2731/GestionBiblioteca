@@ -59,7 +59,6 @@ class MaterialServiceImplTest {
     void testUpdateAvailableQuantity_InsufficientStock() {
         when(materialRepository.findById(1L)).thenReturn(Optional.of(material));
 
-        // Intentamos restar 11 unidades cuando solo hay 10 disponibles (debería lanzar BadRequestException)
         assertThrows(BadRequestException.class, () -> {
             materialService.updateAvailableQuantity(1L, -11);
         });
@@ -72,11 +71,10 @@ class MaterialServiceImplTest {
         when(materialRepository.findById(1L)).thenReturn(Optional.of(material));
         when(materialRepository.save(any(BibliographicMaterial.class))).thenReturn(material);
 
-        // Prestamos las 10 unidades que tenemos disponibles
         BibliographicMaterial updated = materialService.updateAvailableQuantity(1L, -10);
 
         assertEquals(0, updated.getAvailableQuantity());
-        assertEquals("NO_DISPONIBLE", updated.getStatus()); // El estado cambia automáticamente
+        assertEquals("NO_DISPONIBLE", updated.getStatus());
         verify(materialRepository, times(1)).save(material);
     }
 }
