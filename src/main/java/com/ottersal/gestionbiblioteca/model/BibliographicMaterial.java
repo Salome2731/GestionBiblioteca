@@ -42,6 +42,6 @@ public class BibliographicMaterial {
     @Column(nullable = false, length = 20)
     private String status; // Ejemplo: disponible, no disponible, reservado
 
-    @Column(name = "codigo_barras", nullable = false, unique = true, length = 50)
-    private String codigoBarras; // Campo requerido por el caso de estudio
+    @Column(name = "bar_code", nullable = false, unique = true, length = 50)
+    private String bar_code; // Campo requerido por el caso de estudio
 }
