@@ -1,10 +1,8 @@
 package com.ottersal.gestionbiblioteca.service.abstracts;
 
-import com.ottersal.gestionbiblioteca.dtos.request.CreateReservationRequest;
-import com.ottersal.gestionbiblioteca.dtos.response.CreateReservationResponse;
-
-import java.util.UUID;
+import com.ottersal.gestionbiblioteca.dtos.request.ReservationRequest;
+import com.ottersal.gestionbiblioteca.dtos.response.ReservationResponse;
 
 public interface IReservationService {
-    CreateReservationResponse create(CreateReservationRequest reservation);
+    ReservationResponse create(ReservationRequest reservation);
 }

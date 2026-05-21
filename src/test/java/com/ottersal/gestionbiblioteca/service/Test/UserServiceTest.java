@@ -1,8 +1,8 @@
 package com.ottersal.gestionbiblioteca.service.Test;
 
 import com.ottersal.gestionbiblioteca.core.Mapper;
-import com.ottersal.gestionbiblioteca.dtos.request.CreateUserRequest;
-import com.ottersal.gestionbiblioteca.dtos.response.CreateUserResponse;
+import com.ottersal.gestionbiblioteca.dtos.request.UserRequest;
+import com.ottersal.gestionbiblioteca.dtos.response.UserResponse;
 import com.ottersal.gestionbiblioteca.model.User;
 import com.ottersal.gestionbiblioteca.repository.UserRepository;
 import com.ottersal.gestionbiblioteca.service.implement.UserService;
@@ -28,16 +28,16 @@ class UserServiceTest {
     Mapper mapper;
     @InjectMocks
     UserService userService;
-    private CreateUserRequest request;
+    private UserRequest request;
     private User user;
-    private CreateUserResponse response;
+    private UserResponse response;
     private UUID userId;
 
     @BeforeEach
     void setUp() {
         userId = UUID.randomUUID();
 
-        request = new CreateUserRequest(
+        request = new UserRequest(
                 "pass123",
                 "Juan",
                 "Perez",
@@ -51,7 +51,7 @@ class UserServiceTest {
         user.setDNI("12345678");
         user.setEmail("juan@email.com");
 
-        response = new CreateUserResponse(
+        response = new UserResponse(
                 userId,
                 "Juan",
                 "Perez",
@@ -69,7 +69,7 @@ class UserServiceTest {
         when(mapper.toUser(request)).thenReturn(user);
         when(mapper.toDto(user)).thenReturn(response);
 
-        CreateUserResponse result = userService.create(request);
+        UserResponse result = userService.create(request);
 
         assertNotNull(result);
         assertEquals("juan@email.com", result.email());

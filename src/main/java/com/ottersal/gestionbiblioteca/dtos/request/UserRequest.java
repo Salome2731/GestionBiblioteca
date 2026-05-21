@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 
-public record CreateUserRequest(
+public record UserRequest(
             @Size(message = "La contraseña debe tener entre 1 y 20 caracteres", min = 1, max = 20)
             @NotBlank(message = "La contraseña es requerida") String password,
             @Size(message = "El nombre debe de tener entre 1 y 15 caracteres", min = 1, max = 15)

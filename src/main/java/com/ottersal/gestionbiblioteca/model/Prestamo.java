@@ -17,9 +17,9 @@ public class Prestamo {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Client cliente; 
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "id_libro")
-    private Book libro;
+    @JoinColumn(name = "id_bibliographicMaterial")
+    private BibliographicMaterial bibliographicMaterial;
 }

@@ -1,8 +1,8 @@
 package com.ottersal.gestionbiblioteca.controller;
 
 
-import com.ottersal.gestionbiblioteca.dtos.request.CreateUserRequest;
-import com.ottersal.gestionbiblioteca.dtos.response.CreateUserResponse;
+import com.ottersal.gestionbiblioteca.dtos.request.UserRequest;
+import com.ottersal.gestionbiblioteca.dtos.response.UserResponse;
 import com.ottersal.gestionbiblioteca.service.abstracts.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,11 +10,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Tag(name = "Users", description = "Endpoints para gestionar los usuarios del sistema")
@@ -33,7 +35,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping
-    public ResponseEntity<CreateUserResponse> create(@Valid @RequestBody CreateUserRequest request){
+    public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(request));
     }
 
@@ -45,7 +47,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "UUID con formato inválido")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<CreateUserResponse> findById(@PathVariable UUID id){
+    public ResponseEntity<UserResponse> findById(@PathVariable UUID id){
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
@@ -61,6 +63,26 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
+    @Operation(summary = "Listar todos los usuarios paginados")
+    @GetMapping
+    public ResponseEntity<Page<UserResponse>> findAll(
+            @PageableDefault(size = 10, page = 0) Pageable pageable
+    ) {
+        return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
+
+    }
+    @Operation(summary = "Actualizar usuario")
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> update(
+            @PathVariable UUID id,
+            @RequestBody UserRequest request
+    ) {
+        return new ResponseEntity<>(userService.update(id, request), HttpStatus.OK);
+    }
+
 
 
 

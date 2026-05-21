@@ -1,11 +1,13 @@
 package com.ottersal.gestionbiblioteca.service.implement;
 
 import com.ottersal.gestionbiblioteca.core.Mapper;
-import com.ottersal.gestionbiblioteca.dtos.request.CreateUserRequest;
-import com.ottersal.gestionbiblioteca.dtos.response.CreateUserResponse;
+import com.ottersal.gestionbiblioteca.dtos.request.UserRequest;
+import com.ottersal.gestionbiblioteca.dtos.response.UserResponse;
 import com.ottersal.gestionbiblioteca.model.User;
 import com.ottersal.gestionbiblioteca.repository.UserRepository;
 import com.ottersal.gestionbiblioteca.service.abstracts.IUserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -21,7 +23,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public CreateUserResponse create(CreateUserRequest userDto) {
+    public UserResponse create(UserRequest userDto) {
         if (userRepository.existsByDNI(userDto.DNI())) {
             // aplicar manejo de excepciones personalizadas
             throw new RuntimeException("Usuario con este DNI ya existe");
@@ -38,7 +40,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public CreateUserResponse findById(UUID id) {
+    public UserResponse findById(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
@@ -56,4 +58,25 @@ public class UserService implements IUserService {
 
     }
 
+    @Override
+    public UserResponse update(UUID id, UserRequest request) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        existingUser.setFirstName(request.firstName());
+        existingUser.setLastName(request.lastName());
+        existingUser.setEmail(request.email());
+        existingUser.setDNI(request.DNI());
+        existingUser.setPassword(request.password());
+
+        User updatedUser = userRepository.save(existingUser);
+
+        return mapper.toDto(updatedUser);
+    }
+
+    @Override
+    public Page<UserResponse> findAll(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return users.map(mapper::toDto);
+    }
 }
