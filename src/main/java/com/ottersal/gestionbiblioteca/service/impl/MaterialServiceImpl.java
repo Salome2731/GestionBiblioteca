@@ -57,8 +57,8 @@ public class MaterialServiceImpl implements IMaterialService {
     @Override
     @Transactional(readOnly = true)
     public BibliographicMaterial findMaterialByCodigoBarras(String codigoBarras) {
-        return materialRepository.findByCodigoBarras(codigoBarras)
-                .orElseThrow(() -> new ResourceNotFoundException("Material no encontrado con el código de barras: " + codigoBarras));
+        return materialRepository.findByBarCode(codigoBarras)
+                .orElseThrow(() -> new ResourceNotFoundException("Material no encontrado con el código de barras: " + codigoBarras ));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class MaterialServiceImpl implements IMaterialService {
         existingMaterial.setEditorial(updatedMaterial.getEditorial());
         existingMaterial.setIsbn(updatedMaterial.getIsbn());
         existingMaterial.setTotalQuantity(updatedMaterial.getTotalQuantity());
-        existingMaterial.setBar_code(updatedMaterial.getBar_code());
+        existingMaterial.setBarCode(updatedMaterial.getBarCode());
 
         // Aseguramos que la cantidad disponible nunca supere al total
         if (existingMaterial.getAvailableQuantity() > existingMaterial.getTotalQuantity()) {

@@ -28,8 +28,7 @@ public class Role {
 
     @Column(nullable = false)
     @NotNull(message = "El nombre del rol es requerido")
-    @Enumerated(EnumType.STRING)
-    private RoleEnum name;
+    private String name;
 
 
     @Column
@@ -43,7 +42,4 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
     )
     private Set <Permission> permissions;
-
-
-
 }

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record CreateReservationRequest(
+public record ReservationRequest(
         @NotNull(message = "La fecha de reserva es obligatoria")
         @NotNull(message = "La fecha de expiración es obligatoria")
         @Future(message = "La fecha de expiración debe ser futura")

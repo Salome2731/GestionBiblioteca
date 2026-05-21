@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Permission", description = "Endpoints para gestionar los permisos de los usuarios")
@@ -55,5 +56,54 @@ public class PermissionController {
         permissionService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(
+            summary = "Listar permisos",
+            description = "Obtiene todos los permisos registrados"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente"),
+            @ApiResponse(responseCode = "401", description = "No autorizado")
+    })
+
+    @GetMapping
+    public ResponseEntity<List<Permission>> getAll(){
+        return new ResponseEntity<>(permissionService.getAll(),HttpStatus.OK);
+    }
+
+
+    @Operation(
+            summary = "Buscar permiso por ID",
+            description = "Obtiene un permiso específico usando su UUID"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Permiso encontrado"),
+            @ApiResponse(responseCode = "404", description = "Permiso no encontrado"),
+            @ApiResponse(responseCode = "400", description = "UUID inválido")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Permission> getById(@PathVariable UUID id) {
+        return new ResponseEntity<>(permissionService.getById(id), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Actualizar permiso",
+            description = "Actualiza la información de un permiso existente"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Permiso actualizado"),
+            @ApiResponse(responseCode = "404", description = "Permiso no encontrado"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Permission> update(
+            @PathVariable UUID id,
+            @Valid @RequestBody Permission permission
+    ) {
+        return new ResponseEntity<>(permissionService.update(id, permission), HttpStatus.OK);
+    }
+
+
+
 
 }

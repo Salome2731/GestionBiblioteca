@@ -1,8 +1,7 @@
 package com.ottersal.gestionbiblioteca.controller;
 
-import com.ottersal.gestionbiblioteca.dtos.request.CreateReservationRequest;
-import com.ottersal.gestionbiblioteca.dtos.response.CreateReservationResponse;
-import com.ottersal.gestionbiblioteca.model.Reservation;
+import com.ottersal.gestionbiblioteca.dtos.request.ReservationRequest;
+import com.ottersal.gestionbiblioteca.dtos.response.ReservationResponse;
 import com.ottersal.gestionbiblioteca.service.abstracts.IReservationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class ReservationController {
     private final IReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<CreateReservationResponse> create(@Valid @RequestBody CreateReservationRequest reservation){
+    public ResponseEntity<ReservationResponse> create(@Valid @RequestBody ReservationRequest reservation){
         return new ResponseEntity<>(reservationService.create(reservation), HttpStatus.CREATED);
     }
 }

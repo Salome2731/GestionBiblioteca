@@ -1,8 +1,8 @@
 package com.ottersal.gestionbiblioteca.service.implement;
 
 import com.ottersal.gestionbiblioteca.core.Mapper;
-import com.ottersal.gestionbiblioteca.dtos.request.CreateReservationRequest;
-import com.ottersal.gestionbiblioteca.dtos.response.CreateReservationResponse;
+import com.ottersal.gestionbiblioteca.dtos.request.ReservationRequest;
+import com.ottersal.gestionbiblioteca.dtos.response.ReservationResponse;
 import com.ottersal.gestionbiblioteca.model.Reservation;
 import com.ottersal.gestionbiblioteca.model.User;
 import com.ottersal.gestionbiblioteca.repository.ReservationRepository;
@@ -20,7 +20,7 @@ public class ReservationService implements IReservationService {
 
 
     @Override
-    public CreateReservationResponse create(CreateReservationRequest reservation){
+    public ReservationResponse create(ReservationRequest reservation){
         User user = userRepository.findById(reservation.userId())
                 .orElseThrow(()-> new RuntimeException("Usuario con id=" + reservation.userId()+ "no existe"));
 
@@ -32,7 +32,7 @@ public class ReservationService implements IReservationService {
         reservation1.setUser(user);
         reservationRepository.save(reservation1);
 
-        CreateReservationResponse dto = mapper.toDto(reservation1);
+        ReservationResponse dto = mapper.toDto(reservation1);
 //        dto.userDto()
         return dto;
     }

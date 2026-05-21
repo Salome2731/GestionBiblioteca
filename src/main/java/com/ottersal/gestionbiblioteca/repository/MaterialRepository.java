@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface MaterialRepository extends JpaRepository<BibliographicMaterial, Long> {
     
     // Método para buscar por código de barras (esencial para cuando Miguel haga los préstamos)
-    Optional<BibliographicMaterial> findByCodigoBarras(String codigoBarras);
+    Optional<BibliographicMaterial> findByBarCode(String barCode);
+
 }

@@ -2,38 +2,61 @@ package com.ottersal.gestionbiblioteca.service.implement;
 
 
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import com.ottersal.gestionbiblioteca.model.Permission;
 import com.ottersal.gestionbiblioteca.model.Role;
+import com.ottersal.gestionbiblioteca.model.RoleRequest;
+import com.ottersal.gestionbiblioteca.repository.PermissionRepository;
 import com.ottersal.gestionbiblioteca.repository.RoleRepository;
 import com.ottersal.gestionbiblioteca.service.abstracts.IRoleService;
+import jakarta.persistence.SecondaryTable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class RoleService implements IRoleService {
     private final RoleRepository roleRepository;
+    private final PermissionRepository permissionRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, PermissionRepository permissionRepository) {
         this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
     }
 
     @Override
-    public Role create(Role role) {
-        if (roleRepository.existsRoleByName((role.getName()))) {
-            throw new IllegalArgumentException("El rol ya existe");
-        }
+    public Role create(RoleRequest request) {
+        roleRepository.findByName(request.name()).ifPresent(role -> {
+            throw new IllegalArgumentException("El rol con este nombre ya existe");
+        });
+
+        Role role = new Role();
+        role.setDescription(request.description());
+        role.setName(request.name());
+
+        List<Permission> permissions = permissionRepository.findAllById(request.permissionsIds());
+        role.setPermissions(new HashSet<>(permissions));
+
         return roleRepository.save(role);
     }
 
     @Override
-    public Role update(UUID id, Role role) {
+    public Role update(UUID id, RoleRequest request) {
         Role updateRol = roleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("El rol no existe"));
-        return roleRepository.save(role);
+
+        updateRol.setName(request.name());
+        updateRol.setDescription(request.description());
+        List<Permission> permissions = permissionRepository.findAllById(request.permissionsIds());
+        updateRol.setPermissions(new HashSet<>(permissions));
+
+        return roleRepository.save(updateRol);
     }
 
     @Override
     public List<Role> getAll() {
+
         return roleRepository.findAll();
     }
 
@@ -44,6 +67,10 @@ public class RoleService implements IRoleService {
 
     @Override
     public boolean delete(UUID id) {
-        return false;
+        if (!roleRepository.existsById(id)) {
+            throw new IllegalArgumentException("El rol no existe");
+        }
+        roleRepository.deleteById(id);
+        return true;
     }
 }
